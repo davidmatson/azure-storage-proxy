@@ -7,8 +7,10 @@ internal static class HeaderCanonicalizer
 {
     public static void CanonicalizeHeaders(HttpRequestMessage request, StringBuilder output)
     {
-        foreach (var header in request.Headers.Where(h => h.Key.StartsWith("x-ms-")).Select(
-            h => new KeyValuePair<string, string>(h.Key.ToLowerInvariant(), h.Value.First())))
+        foreach (var header in request.Headers
+            .Where(h => h.Key.StartsWith("x-ms-"))
+            .Select(h => new KeyValuePair<string, string>(h.Key.ToLowerInvariant(), h.Value.First()))
+            .OrderBy(h => h.Key))
         {
             output.Append(header.Key);
             output.Append(':');
