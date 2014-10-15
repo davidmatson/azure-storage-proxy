@@ -37,7 +37,7 @@ internal sealed class ProxyHandler : DelegatingHandler
         request.RequestUri = builder.Uri;
         request.Headers.Host = builder.Host;
 
-        if (request.Method == HttpMethod.Get)
+        if (request.Method == HttpMethod.Get || request.Method == HttpMethod.Head)
         {
             request.Content = null;
         }
