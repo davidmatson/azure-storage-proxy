@@ -30,6 +30,7 @@ internal sealed class ProxyHandler : DelegatingHandler
         string storageType;
         string path;
         SplitPath(builder.Path, out storageType, out path);
+        path = Uri.UnescapeDataString(path);
         builder.Path = path;
         builder.Host = String.Format(CultureInfo.InvariantCulture,
             "{0}.{1}.core.windows.net", _accountName, storageType);
