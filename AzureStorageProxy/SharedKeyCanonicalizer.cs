@@ -45,9 +45,9 @@ internal class SharedKeyCanonicalizer : IRequestCanonicalizer
             }
         }
         output.Append('\n');
-        if (request.Content != null)
+        if (request.Content != null && request.Content.Headers.ContentMD5 != null)
         {
-            output.Append(request.Content.Headers.ContentMD5);
+            output.Append(Convert.ToBase64String(request.Content.Headers.ContentMD5));
         }
         output.Append('\n');
         if (request.Content != null)

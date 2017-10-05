@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 
@@ -24,9 +25,9 @@ internal class SharedKeyTableCanonicalizer : IRequestCanonicalizer
         StringBuilder output = new StringBuilder();
         output.Append(request.Method.Method.ToUpperInvariant());
         output.Append('\n');
-        if (request.Content != null)
+        if (request.Content != null && request.Content.Headers.ContentMD5 != null)
         {
-            output.Append(request.Content.Headers.ContentMD5);
+            output.Append(Convert.ToBase64String(request.Content.Headers.ContentMD5));
         }
         output.Append('\n');
         if (request.Content != null)
