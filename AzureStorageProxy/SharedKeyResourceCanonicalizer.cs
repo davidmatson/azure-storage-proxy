@@ -41,15 +41,15 @@ internal class SharedKeyResourceCanonicalizer : IResourceCanonicalizer
             output.Append(':');
             bool first = true;
 
-            foreach (var item in group)
+            foreach (var value in group.Select(p => p.Value).OrderBy(v => v))
             {
                 if (!first)
                 {
                     output.Append(',');
                 }
 
-                string value = HttpUtility.UrlDecode(item.Value);
-                output.Append(value);
+                string decodedValue = HttpUtility.UrlDecode(value);
+                output.Append(decodedValue);
                 first = false;
             }
         }
