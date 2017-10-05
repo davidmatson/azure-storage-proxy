@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 internal class SharedKeyTableCanonicalizer : IRequestCanonicalizer
@@ -36,6 +37,10 @@ internal class SharedKeyTableCanonicalizer : IRequestCanonicalizer
         if (request.Headers.Date.HasValue)
         {
             output.Append(request.Headers.Date.Value.ToString("r"));
+        }
+        else if (request.Headers.Contains("x-ms-date"))
+        {
+            output.Append(request.Headers.GetValues("x-ms-date").First());
         }
         output.Append('\n');
         _resourceCanonicalizer.CanonicalizeResource(accountName, request, output);
