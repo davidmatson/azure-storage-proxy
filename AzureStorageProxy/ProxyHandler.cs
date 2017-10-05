@@ -99,7 +99,7 @@ internal sealed class ProxyHandler : DelegatingHandler
             {
                 string firstVersion = request.Headers.GetValues("x-ms-version").First();
 
-                if ("2009-09-19".CompareTo(firstVersion) <= 0)
+                if (request.IsAtLeastVersion(new DateTime(2009, 09, 19)))
                 {
                     return SharedKeyCanonicalizer.Instance.Canonicalize(_accountName, request);
                 }

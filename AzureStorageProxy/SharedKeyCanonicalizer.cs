@@ -37,7 +37,12 @@ internal class SharedKeyCanonicalizer : IRequestCanonicalizer
         output.Append('\n');
         if (request.Content != null && request.Content.Headers.ContentLength.HasValue)
         {
-            output.Append(String.Join(" ", request.Content.Headers.ContentLength.Value));
+            long contentLength = request.Content.Headers.ContentLength.Value;
+
+            if (contentLength > 0 || !request.IsAtLeastVersion(new DateTime(2015, 02, 21)))
+            {
+                output.Append(contentLength);
+            }
         }
         output.Append('\n');
         if (request.Content != null)

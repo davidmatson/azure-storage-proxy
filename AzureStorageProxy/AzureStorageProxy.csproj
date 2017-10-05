@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="HeaderCanonicalizer.cs" />
+    <Compile Include="HttpRequestMessageExtensions.cs" />
     <Compile Include="SharedKeyCanonicalizer.cs" />
     <Compile Include="QueryStringParser.cs" />
     <Compile Include="SharedKeyResourceCanonicalizer.cs" />
